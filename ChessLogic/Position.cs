@@ -15,7 +15,7 @@ namespace ChessLogic
 
         public Player SquareColor()
         {
-            if ((Row + Column) % 2 == 0)
+            if((Row + Column) % 2 == 0)
                 return Player.White;
 
             return Player.Black;
@@ -45,7 +45,7 @@ namespace ChessLogic
 
         public static Position operator +(Position pos, Direction dir)
         {
-            return new Position(pos.Row + dir.ColumnChange, pos.Column + dir.ColumnChange);
+            return new Position(pos.Row + dir.RowChange, pos.Column + dir.ColumnChange);
         }
     }
 }

@@ -40,20 +40,20 @@
         {
             Position oneMovePos = from + forward;
 
-            if (CanMoveTo(oneMovePos, board))
+            if(CanMoveTo(oneMovePos, board))
             {
                 yield return new NormalMove(from, oneMovePos);
 
-                Position twoMovesPos = from + forward;
+                Position twoMovesPos = oneMovePos + forward;
 
-                if (!HasMoved && CanMoveTo(twoMovesPos, board))
-                    yield return new NormalMove(from, twoMovesPos);
+                if(!HasMoved && CanMoveTo(twoMovesPos, board))
+                   yield return new NormalMove(from, twoMovesPos);
             }
         }
 
         private IEnumerable<Move> DiagonalMoves(Position from, Board board)
         {
-            foreach (Direction dir in new Direction[] { Direction.West, Direction.East })
+            foreach(Direction dir in new Direction[] { Direction.West, Direction.East })
             {
                 Position to = from + forward + dir;
 

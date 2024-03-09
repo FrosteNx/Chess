@@ -23,8 +23,8 @@
             {
                 foreach (Direction hDir in new Direction[] { Direction.East, Direction.West })
                 {
-                    yield return from + 2 * vDir + hDir;
-                    yield return from + 2 * hDir + vDir;
+                    yield return from + (2 * vDir) + hDir;
+                    yield return from + (2 * hDir) + vDir;
                 }
             }
         }
