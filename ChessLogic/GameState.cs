@@ -13,7 +13,7 @@
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
-            if (Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
+            if(Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
                 return Enumerable.Empty<Move>();
 
             Piece piece = Board[pos];
