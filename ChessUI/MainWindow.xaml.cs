@@ -65,6 +65,9 @@ namespace ChessUI
 
         private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if(IsMenuOnScreen())
+                return;
+
             Point point = e.GetPosition(BoardGrid);
             Position pos = ToSquarePosition(point);
 
@@ -138,6 +141,16 @@ namespace ChessUI
                 Cursor = ChessCursors.WhiteCursor;
             else
                 Cursor = ChessCursors.BlackCursor;
+        }
+
+        private bool IsMenuOnScreen()
+        {
+            return MenuContainer.Content != null;
+        }
+
+        private void ShowGameOver()
+        {
+
         }
     }
 }
