@@ -150,7 +150,28 @@ namespace ChessUI
 
         private void ShowGameOver()
         {
+            GameOverMenu gameOverMenu = new GameOverMenu(gameState);
+            MenuContainer.Content = gameOverMenu;
 
+            gameOverMenu.OptionSelected += option =>
+            {
+                if(option == Option.Restart)
+                {
+                    MenuContainer.Content = null;
+                    RestartGame();
+                }
+                else
+                    Application.Current.Shutdown();
+            };
+        }
+
+        private void RestartGame()
+        {
+            HideHighlights();
+            moveCache.Clear();
+            gameState = new GameState(Board.Initial(), Player.White);
+            DrawBoard(gameState.Board);
+            SetCursor(gameState.CurrentPlayer);
         }
     }
 }
