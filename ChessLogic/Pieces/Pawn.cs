@@ -1,4 +1,6 @@
-﻿namespace ChessLogic
+﻿using ChessLogic.Moves;
+
+namespace ChessLogic
 {
     public class Pawn : Piece
     {
@@ -36,13 +38,25 @@
             return board[pos].Color != Color;
         }
 
+        private static IEnumerable<Move> PromotionMoves(Position from, Position to)
+        {
+            yield return new PawnPromotion(from, to, PieceType.Knight);
+            yield return new PawnPromotion(from, to, PieceType.Bishop);
+            yield return new PawnPromotion(from, to, PieceType.Rook);
+            yield return new PawnPromotion(from, to, PieceType.Queen);
+        }
+
         private IEnumerable<Move> ForwardMoves(Position from, Board board)
         {
             Position oneMovePos = from + forward;
 
             if(CanMoveTo(oneMovePos, board))
             {
-                yield return new NormalMove(from, oneMovePos);
+                if(oneMovePos.Row == 0 || oneMovePos.Row == 7)
+                    foreach(Move promMove in PromotionMoves(from, oneMovePos))
+                        yield return promMove;
+                else
+                    yield return new NormalMove(from, oneMovePos);
 
                 Position twoMovesPos = oneMovePos + forward;
 
@@ -57,8 +71,14 @@
             {
                 Position to = from + forward + dir;
 
-                if (CanCaptureAt(to, board))
-                    yield return new NormalMove(from, to);
+                if(CanCaptureAt(to, board))
+                {
+                    if(to.Row == 0 || to.Row == 7)
+                        foreach(Move promMove in PromotionMoves(from, to))
+                            yield return promMove;
+                    else
+                        yield return new NormalMove(from, to);
+                }
             }
         }
 
